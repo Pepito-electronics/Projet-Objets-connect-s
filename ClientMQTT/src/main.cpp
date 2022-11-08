@@ -2,10 +2,10 @@
 
 //#define BLYNK_PRINT Serial
 
-
 #include <WiFiClient.h>
 #include <PubSubClient.h>
 #include <ESPAsyncWebServer.h>
+#include <Wire.h>
 
 const char* mqtt_server ="IP_server";    //NODERED
 
