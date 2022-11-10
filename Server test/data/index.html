@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html>
   <head>
-    <title>ESP websever</title>  
+    <title>Projet Objet connectés</title>  
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
    <meta name="viewport" content="width=device-width,initial-scale=1">
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -31,7 +31,7 @@
 <div class="w3-blue-grey" style = "text-align:left">
   <button class="w3-button w3-blue-grey w3-xlarge" onclick="w3_open()">☰</button>
     <header class="w3-container w3-blue-grey">
-       <h1 class="w3-animate-top"> NodeRed Web Server </h1>
+       <h1 class="w3-animate-top"> Cocktail des électroniciens </h1>
     </header>
   </div>
 <script>
@@ -48,39 +48,35 @@ function w3_close() {
 }
 </script>
 
-    <h4 class="w3-animate-fading"> Par Juan Alvarez et Olivier Grabenweger</h4>
-    <h2 id="infos"> Infos pratiques :</h2>
+    <h4 class="w3-animate-fading"> Résultats du concours </h4>
+    <h2 id="infos"> Règles du jeu :</h2>
     <ul>
-    	<p>Gestion et visualisation des données de température et d'humidité dans une pièce avec un esp32 en passant par NodeRed<p/>
-        <p>Pour ce faire nous avons déployé les objets suivants<p/>
-      <li>Une page web, développée par nous mêmes et basée sur le contenu d'un précédent tp avec pour but de présenter le contenu du tp et visualiser librement les données.
-      <li> Afin de déployer notre page web nous avons décidé de le faire depuis nodeRed et ce pour 2 raisons, la première car se faisant on peut allèger le code, même en multi fichiers, ensuite si on venait à déconnecter l'ESP la page web continuerais d'exister ce qui nous semble être une approche plus pro du serveur web.
-      <li> Pour faire communiquer notre ESP et notre NodeRed, nous somme passés par un broker gratuit(mosquitto) que nous avons déployé depuis docker également.
-      <li>Enfin afin d'avoir une interface accessible et intuitive pour visualiser et interragir avec les objets installés dans la pièce nous avons utilisé Blynk pour réaliser une appication de GSM basée sur le travail fournit pour le TP3.
-      <li>Enfin afin d'avoir des données, nous avons conçu un système qui contrôle la température et l'humidité. Pour interragir avec le système nous avons installé un servo moteur sur la vanne de chauffage et avons installé un témoins (led RGB)qui permet de visuellement confirmer le degré d'ouverture de la vanne par un code couleur(fermé-->rouge,100% ouvert-->vert, et des nuances allant de jaune vers orange)
+    	<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.<p/>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.<p/>
+      <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+      <li> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
     </ul>
     <br>
     <fieldset class="w3-pale-yellow">
-      <legend id="data" style = "text-align:center;font-size:25px">DATA FEED</legend>
-      <span style="size:20"> Temperature: </span><span id="capteur_t";style="color:green;size:20;"></span>
+      <legend id="data" style = "text-align:center;font-size:25px"> SCORES </legend>
+      <span style="size:20"> Equipe 1 </span><span id="capteur_t";style="color:green;size:20;"></span>
       <br>
-      <span style="size:20;"> Humidity: </span><span id="capteur_h";style="color:green;size:20;"></span>
+      <span style="size:20;"> Equipe 2: </span><span id="capteur_h";style="color:green;size:20;"></span>
       <br>
-      <span style="size:20;"> Button State: </span><span id="state_b";style="color:green;size:20;"></span>
+      <span style="size:20;"> Equipe 3: </span><span id="capteur_h";style="color:green;size:20;"></span>
       <br>
-      <span style="size:20;"> The button has been pressed : </span>  <span></span>  <span style="size:20;">_times</span>
+      <span style="size:20;"> Equipe 4: </span><span id="capteur_h";style="color:green;size:20;"></span>
       <br>
-      <span> LED status : </span>          <span id="state_LED"></span>
-    </fieldset>
     <br>
     <br>
+    
 	<h2 style = "text-align:center;font-size:25px"> DATA DISPLAY </h2>
   <div id="chart-temperature" class="container"></div>
   <div id="chart-humidity" class="container"></div>
     <script>
 var chartT = new Highcharts.Chart({
   chart:{ renderTo : 'chart-temperature' },
-  title: { text: 'DHT11 Temperature' },
+  title: { text: 'lorem ipsum' },
   series: [{
     showInLegend: false,
     data: []
@@ -95,7 +91,7 @@ var chartT = new Highcharts.Chart({
     dateTimeLabelFormats: { second: '%H:%M:%S' }
   },
   yAxis: {
-    title: { text: 'Temperature (Celsius)' }
+    title: { text: 'points' }
     //title: { text: 'Temperature (Fahrenheit)' }
   },
   credits: { enabled: false }
@@ -117,53 +113,13 @@ setInterval(function ( ) {
   xhttp.open("GET", "/temperature", true);
   xhttp.send();
 }, 1000 ) ;
-      
-      var chartH = new Highcharts.Chart({
-  chart:{ renderTo:'chart-humidity' },
-  title: { text: 'DHT11 Humidity' },
-  series: [{
-    showInLegend: false,
-    data: []
-  }],
-  plotOptions: {
-    line: { animation: false,
-      dataLabels: { enabled: true }
-    }
-  },
-  xAxis: {
-    type: 'datetime',
-    dateTimeLabelFormats: { second: '%H:%M:%S' }
-  },
-  yAxis: {
-    title: { text: 'Humidity (%)' }
-  },
-  credits: { enabled: false }
-});
-setInterval(function ( ) {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      var x = (new Date()).getTime(),
-          y = parseFloat(this.responseText);
-      //console.log(this.responseText);
-      if(chartH.series[0].data.length > 40) {
-        chartH.series[0].addPoint([x, y], true, true, true);
-      } 
-      else {
-        chartH.series[0].addPoint([x, y], true, false, true);
-      }
-    }
-  };
-  xhttp.open("GET", "/humidity", true);
-  xhttp.send();
-}, 1000 ) ;
     </script>
     <br>
     <br>
         <h2 id="ill"class="w3-center">Illustrations</h2>
     <div class="w3-content w3-display-container">
- 	  <img class="mySlides" src="https://scontent.fbru5-1.fna.fbcdn.net/v/t1.15752-9/132680314_430948934773714_6821396418431504269_n.jpg?_nc_cat=100&ccb=2&_nc_sid=ae9488&_nc_ohc=zYDrnN_bHZcAX9DQaff&_nc_ht=scontent.fbru5-1.fna&oh=49ad5c06212f195e823c9ce77805ca69&oe=60098CE1"⁩ style="width:50%;height:60%">
-	  <img class="mySlides" src="https://scontent.fbru5-1.fna.fbcdn.net/v/t1.15752-9/132290689_390433512246324_3831939363267429479_n.jpg?_nc_cat=109&ccb=2&_nc_sid=ae9488&_nc_ohc=KUEIGZuw2y4AX_GZZSB&_nc_ht=scontent.fbru5-1.fna&oh=30be909b4e908f4daa53aee3263e3444&oe=600784DD"⁩ style="width:20%;height:25%">
+ 	  <img class="mySlides" src="https://urlz.fr/jKSr"⁩ style="width:50%;height:60%">
+	  <img class="mySlides" src="https://urlz.fr/jKSu"⁩ style="width:20%;height:25%">
 	</div>
     <script>
 var myIndex = 0;
