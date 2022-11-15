@@ -138,6 +138,7 @@ void loop() {
                 digitalWrite(ledDetectCard, HIGH);
                 delay(1000);
                 digitalWrite(ledDetectCard, LOW);
+                flag = 0;
                 
                 snprintf(msg, MSG_BUFFER_SIZE, "%s", tagID);
                 Serial.print("Publish message: ");
@@ -155,8 +156,11 @@ void loop() {
             }
 
         }
-        else Serial.println(F("Card read previously."));
-        StopReading();
+        else
+        {
+            Serial.println(F("Card read previously."));
+            StopReading();
+        }
     }
     else
     {
