@@ -40,7 +40,7 @@ String MasterTag = "D34958A3";
 String tagID = "";
 bool flag = 0;
 
-
+void StopReading();
 
 void callback(char* topic, byte* payload, unsigned int length){
     for (int i = 0; i < length; i++) {
@@ -50,6 +50,7 @@ void callback(char* topic, byte* payload, unsigned int length){
         }        
     }
 }
+
 
 
 void reconnect() {     //NODERED mqqt connexion 
