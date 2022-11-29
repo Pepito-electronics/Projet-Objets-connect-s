@@ -36,7 +36,7 @@ MFRC522::MIFARE_Key key;
 byte nuidPICC[4];
 
 const char iDEsp = 4;
-String MasterTag = "D34958A3";
+String MasterTag = "4E6B56A3";
 String tagID = "";
 bool flag = 0;
 
@@ -156,13 +156,9 @@ void loop() {
             }
 
         }
-        else
-        {
-            Serial.println(F("Card read previously."));
-            StopReading();
-        }
+ 
     }
-    else
+    else if (flag == 0)
     {
         digitalWrite(ledIndicator, LOW);
 
@@ -174,7 +170,4 @@ void loop() {
   client.loop();  
 }
 
-void StopReading() {
-    rfid.PICC_HaltA();  // Halt PICC
-    rfid.PCD_StopCrypto1();     // Stop encryption on PCD
-}
+
