@@ -43,7 +43,7 @@ void reconnect() {     //NODERED mqqt connexion
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       // ... and resubscribe
-      client.subscribe("_");
+      client.subscribe("test");
       client.subscribe("__");
       client.subscribe("___");
     } else {
