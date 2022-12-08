@@ -1,0 +1,202 @@
+<!DOCTYPE html> 
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+  <head>
+    <title></title>  
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+      h1 {font-family:monospace;text-align:center}
+      h4 {font-family:cursive;font-style:italic}
+      ul {font-family:tahoma;font-weight:normal;font-style:italic;font-size:14px;line-height:20px}
+      hr {border: 3px solid green;}
+      p {font-family:tahoma}
+      span {font-family:tahoma;line-height:35px}
+      div {text-align:center}
+      button {font-size:20px}
+      .mySlides {display:none;}
+    </style>
+  
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor msdt:dt="string">ALVAREZ LOPEZ Juan</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor>
+<mso:Order msdt:dt="string">1067000.00000000</mso:Order>
+<mso:ComplianceAssetId msdt:dt="string"></mso:ComplianceAssetId>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author msdt:dt="string">ALVAREZ LOPEZ Juan</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author>
+<mso:ContentTypeId msdt:dt="string">0x0101003309DD33B0D3A2458EAFB9A484E3A3E4</mso:ContentTypeId>
+<mso:_SourceUrl msdt:dt="string"></mso:_SourceUrl>
+<mso:_SharedFileIndex msdt:dt="string"></mso:_SharedFileIndex>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+  <body class="w3-animate-opacity">
+    <!-- Sidebar -->
+<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+  <button onclick="w3_close()" class="w3-bar-item w3-large w3-hover-grey">Close &times;</button>
+  <a href="#infos" class="w3-bar-item w3-button w3-hover-grey">infos pratiques</a>
+  <a href="#data" class="w3-bar-item w3-button w3-hover-grey">DATA</a>
+  <a href="#ill" class="w3-bar-item w3-button w3-hover-grey">Illustrations</a>
+</div>
+<!-- Page Content -->
+ <div id="main" style="text-align:left">
+<div class="w3-blue-grey" style = "text-align:left">
+  <button class="w3-button w3-blue-grey w3-xlarge" onclick="w3_open()">☰</button>
+    <header class="w3-container w3-blue-grey">
+       <h1 class="w3-animate-top"> NodeRed Web Server </h1>
+    </header>
+  </div>
+<script>
+function w3_open() {
+  document.getElementById("main").style.marginLeft = "25%";
+  document.getElementById("mySidebar").style.width = "25%";
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("openNav").style.display = 'none';
+}
+function w3_close() {
+  document.getElementById("main").style.marginLeft = "0%";
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("openNav").style.display = "inline-block";
+}
+</script>
+
+    <h4 class="w3-animate-fading"> Par Juan Alvarez et Olivier Grabenweger</h4>
+    <h2 id="infos"> Infos pratiques :</h2>
+    <ul>
+    	<p>Gestion et visualisation des données de température et d'humidité dans une pièce avec un esp32 en passant par NodeRed<p/>
+        <p>Pour ce faire nous avons déployé les objets suivants<p/>
+      <li>Une page web, développée par nous mêmes et basée sur le contenu d'un précédent tp avec pour but de présenter le contenu du tp et visualiser librement les données.
+      <li> Afin de déployer notre page web nous avons décidé de le faire depuis nodeRed et ce pour 2 raisons, la première car se faisant on peut allèger le code, même en multi fichiers, ensuite si on venait à déconnecter l'ESP la page web continuerais d'exister ce qui nous semble être une approche plus pro du serveur web.
+      <li> Pour faire communiquer notre ESP et notre NodeRed, nous somme passés par un broker gratuit(mosquitto) que nous avons déployé depuis docker également.
+      <li>Enfin afin d'avoir une interface accessible et intuitive pour visualiser et interragir avec les objets installés dans la pièce nous avons utilisé Blynk pour réaliser une appication de GSM basée sur le travail fournit pour le TP3.
+      <li>Enfin afin d'avoir des données, nous avons conçu un système qui contrôle la température et l'humidité. Pour interragir avec le système nous avons installé un servo moteur sur la vanne de chauffage et avons installé un témoins (led RGB)qui permet de visuellement confirmer le degré d'ouverture de la vanne par un code couleur(fermé-->rouge,100% ouvert-->vert, et des nuances allant de jaune vers orange)
+    </ul>
+    <br>
+    <fieldset class="w3-pale-yellow">
+      <legend id="data" style = "text-align:center;font-size:25px">DATA FEED</legend>
+      <span style="size:20"> Temperature: </span><span id="capteur_t";style="color:green;size:20;"></span>
+      <br>
+      <span style="size:20;"> Humidity: </span><span id="capteur_h";style="color:green;size:20;"></span>
+      <br>
+      <span style="size:20;"> Button State: </span><span id="state_b";style="color:green;size:20;"></span>
+      <br>
+      <span style="size:20;"> The button has been pressed : </span>  <span></span>  <span style="size:20;">_times</span>
+      <br>
+      <span> LED status : </span>          <span id="state_LED"></span>
+    </fieldset>
+    <br>
+    <br>
+	<h2 style = "text-align:center;font-size:25px"> DATA DISPLAY </h2>
+  <div id="chart-temperature" class="container"></div>
+  <div id="chart-humidity" class="container"></div>
+    <script>
+var chartT = new Highcharts.Chart({
+  chart:{ renderTo : 'chart-temperature' },
+  title: { text: 'DHT11 Temperature' },
+  series: [{
+    showInLegend: false,
+    data: []
+  }],
+  plotOptions: {
+    line: { animation: false,
+      dataLabels: { enabled: true }
+    },
+    series: { color: '#059e8a' }
+  },
+  xAxis: { type: 'datetime',
+    dateTimeLabelFormats: { second: '%H:%M:%S' }
+  },
+  yAxis: {
+    title: { text: 'Temperature (Celsius)' }
+    //title: { text: 'Temperature (Fahrenheit)' }
+  },
+  credits: { enabled: false }
+});
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var x = (new Date()).getTime(),
+          y = parseFloat(this.responseText);
+      //console.log(this.responseText);
+      if(chartT.series[0].data.length > 40) {
+        chartT.series[0].addPoint([x, y], true, true, true);
+      } else {
+        chartT.series[0].addPoint([x, y], true, false, true);
+      }
+    }
+  };
+  xhttp.open("GET", "/temperature", true);
+  xhttp.send();
+}, 1000 ) ;
+      
+      var chartH = new Highcharts.Chart({
+  chart:{ renderTo:'chart-humidity' },
+  title: { text: 'DHT11 Humidity' },
+  series: [{
+    showInLegend: false,
+    data: []
+  }],
+  plotOptions: {
+    line: { animation: false,
+      dataLabels: { enabled: true }
+    }
+  },
+  xAxis: {
+    type: 'datetime',
+    dateTimeLabelFormats: { second: '%H:%M:%S' }
+  },
+  yAxis: {
+    title: { text: 'Humidity (%)' }
+  },
+  credits: { enabled: false }
+});
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var x = (new Date()).getTime(),
+          y = parseFloat(this.responseText);
+      //console.log(this.responseText);
+      if(chartH.series[0].data.length > 40) {
+        chartH.series[0].addPoint([x, y], true, true, true);
+      } 
+      else {
+        chartH.series[0].addPoint([x, y], true, false, true);
+      }
+    }
+  };
+  xhttp.open("GET", "/humidity", true);
+  xhttp.send();
+}, 1000 ) ;
+    </script>
+    <br>
+    <br>
+        <h2 id="ill"class="w3-center">Illustrations</h2>
+    <div class="w3-content w3-display-container">
+ 	  <img class="mySlides" src="https://scontent.fbru5-1.fna.fbcdn.net/v/t1.15752-9/132680314_430948934773714_6821396418431504269_n.jpg?_nc_cat=100&ccb=2&_nc_sid=ae9488&_nc_ohc=zYDrnN_bHZcAX9DQaff&_nc_ht=scontent.fbru5-1.fna&oh=49ad5c06212f195e823c9ce77805ca69&oe=60098CE1"⁩ style="width:50%;height:60%">
+	  <img class="mySlides" src="https://scontent.fbru5-1.fna.fbcdn.net/v/t1.15752-9/132290689_390433512246324_3831939363267429479_n.jpg?_nc_cat=109&ccb=2&_nc_sid=ae9488&_nc_ohc=KUEIGZuw2y4AX_GZZSB&_nc_ht=scontent.fbru5-1.fna&oh=30be909b4e908f4daa53aee3263e3444&oe=600784DD"⁩ style="width:20%;height:25%">
+	</div>
+    <script>
+var myIndex = 0;
+carousel();
+
+function carousel() {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  myIndex++;
+  if (myIndex > x.length) {myIndex = 1}    
+  x[myIndex-1].style.display = "block";  
+  setTimeout(carousel, 2000); // Change image every 2 seconds
+}
+</script>
+    </div>
+    <footer class="w3-container w3-blue-grey w3-margin-top">
+        <h5>Docker hosted webserver </h5>
+        <p>launched from NodeRed</p>
+    </footer>
+  </body>
+</html>
