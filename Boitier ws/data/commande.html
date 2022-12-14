@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script>
+    setInterval(function ( ) {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+    
+          var commande = this.responseText;
+
+          console.log(this.responseText);
+
+          for(let i = 0; i < parseInt(commande.charAt(0));i++){
+            incrementCocktail1();
+          }
+          for(let i = 0; i < parseInt(commande.charAt(2));i++){
+            incrementCocktail2();
+          }
+          for(let i = 0; i < parseInt(commande.charAt(4));i++){
+            incrementCocktail3();
+          }
+          for(let i = 0; i < parseInt(commande.charAt(6));i++){
+            incrementCocktail4();
+          }
+        }
+      };
+      xhttp.open("GET", "/actu", true);
+      xhttp.send(null);
+    }, 1000 ) ;
+    </script>
+  </head>
+
+  <body>
+    
+    <input id=cocktail1 type=number value="0" min="0">
+    <button onclick="decrementCocktail1()">-</button>
+    <button onclick="incrementCocktail1()">+</button>
+    <br>
+
+    <input id=cocktail2 type=number value="0" min="0">
+    <button onclick="decrementCocktail2()">-</button>
+    <button onclick="incrementCocktail2()">+</button>
+    <br>
+
+    <input id=cocktail3 type=number value="0" min="0">
+    <button onclick="decrementCocktail3()">-</button>
+    <button onclick="incrementCocktail3()">+</button>
+    <br>
+
+    <input id=cocktail4 type=number value="0" min="0">
+    <button onclick="decrementCocktail4()">-</button>
+    <button onclick="incrementCocktail4()">+</button>
+    <br>
+
+    <script>
+      function incrementCocktail1() {
+        document.getElementById('cocktail1').stepUp();
+      }
+      function decrementCocktail1() {
+        document.getElementById('cocktail1').stepDown();
+      }
+      function incrementCocktail2() {
+        document.getElementById('cocktail2').stepUp();
+      }
+      function decrementCocktail2() {
+        document.getElementById('cocktail2').stepDown();
+      }
+      function incrementCocktail3() {
+        document.getElementById('cocktail3').stepUp();
+      }
+      function decrementCocktail3() {
+       document.getElementById('cocktail3').stepDown();
+      }
+      function incrementCocktail4() {
+        document.getElementById('cocktail4').stepUp();
+      }
+      function decrementCocktail4() {
+        document.getElementById('cocktail4').stepDown();
+      }
+    </script>
+  </body>
+</html>

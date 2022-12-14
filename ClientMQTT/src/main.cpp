@@ -1,7 +1,5 @@
 #include <Arduino.h>
-
 //#define BLYNK_PRINT Serial
-
 #include <WiFiClient.h>
 #include <PubSubClient.h>
 #include <ESPAsyncWebServer.h>
