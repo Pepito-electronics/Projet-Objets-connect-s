@@ -33,7 +33,7 @@
 #define WIFI_SSID "LARAS"
 #define WIFI_PASS "wifi4guest"
 
-#define NB_LEDS 4
+
 #define BRIGHTNESS 50
 
 const char* mqtt_server ="172.30.40.46";    //MQTT broker
@@ -76,7 +76,6 @@ unsigned long currentMillis=0;
 void printHex(byte *buffer, byte bufferSize);
 void printDec(byte *buffer, byte bufferSize);
 
-void showProgramCleanUp(long delayTime);
 void led(int commande);
 
 void callback(char* topic, byte* payload, unsigned int length) {
@@ -177,68 +176,81 @@ void loop() {
     if ( ! rfid.PICC_ReadCardSerial())
       return;
 
-    if (rfid.uid.uidByte[0] != nuidPICC[0] || rfid.uid.uidByte[1] != nuidPICC[1] || rfid.uid.uidByte[2] != nuidPICC[2] || rfid.uid.uidByte[3] != nuidPICC[3] ) 
-    {
-      Serial.println(F("A new card has been detected."));
-      // Store NUID into nuidPICC array
-      for (byte i = 0; i < 4; i++) {
-        nuidPICC[i] = rfid.uid.uidByte[i];
-      }
     
-      Serial.println(F("The NUID tag is:"));
-      Serial.print(F("In hex: "));
-      printHex(rfid.uid.uidByte, rfid.uid.size);
-      Serial.println();
-      tagID = "";
-      for ( uint8_t i = 0; i < 4; i++) {                  // The MIFARE tag in use has a 4 byte UID
-        tagID.concat(String(rfid.uid.uidByte[i], HEX));
-        // Adds the 4 bytes in a single string variable
-      }
-      tagID.toUpperCase();
-
-      if(tagID==EquipeRouge){
-        client.publish("Game1","W1");
-        led(3);
-        //led(3);
-        G_Started = false;
-      }
-      else if(tagID == EquipeVerte){
-        client.publish("Game1","W2");
-        led(3);
-        //led(3);
-        G_Started = false;
-      }
-      else if(tagID == EquipeBleue){
-        client.publish("Game1","W3");
-        led(3);
-        //led(3);
-        G_Started = false;
-      }
-      else if(tagID==EquipeJaune){
-        client.publish("Game1","W4");
-        led(3);
-        //led(3);
-        G_Started = false;
-      }
-      else if(tagID==EquipeOrange){
-        client.publish("Game1","W5");
-        led(3);
-        //led(3);
-        G_Started = false;
-      }
-      else if(tagID==EquipeMauve){
-        client.publish("Game1","W6");
-        led(3);
-        //led(3);
-        G_Started = false;
-      }
-      else if(tagID==EquipeMarron){
-        client.publish("Game1","W7");
-        led(3);
-        //led(3);
-        G_Started = false;
-      } 
+    Serial.println(F("A new card has been detected."));
+    // Store NUID into nuidPICC array
+    for (byte i = 0; i < 4; i++) {
+      nuidPICC[i] = rfid.uid.uidByte[i];
     }
+  
+    Serial.println(F("The NUID tag is:"));
+    Serial.print(F("In hex: "));
+    printHex(rfid.uid.uidByte, rfid.uid.size);
+    Serial.println();
+    tagID = "";
+    for ( uint8_t i = 0; i < 4; i++) {                  // The MIFARE tag in use has a 4 byte UID
+      tagID.concat(String(rfid.uid.uidByte[i], HEX));
+      // Adds the 4 bytes in a single string variable
+    }
+    tagID.toUpperCase();
+
+    if(tagID==EquipeRouge){
+      client.publish("Game1","W1");
+      led(3);
+      delay(1000);
+      led(0);
+      //led(3);
+      G_Started = false;
+    }
+    else if(tagID == EquipeVerte){
+      client.publish("Game1","W2");
+      led(3);
+      delay(1000);
+      led(0);
+      //led(3);
+      G_Started = false;
+    }
+    else if(tagID == EquipeBleue){
+      client.publish("Game1","W3");
+      led(3);
+      delay(1000);
+      led(0);
+      //led(3);
+      G_Started = false;
+    }
+    else if(tagID==EquipeJaune){
+      client.publish("Game1","W4");
+      led(3);
+      delay(1000);
+      led(0);
+      //led(3);
+      G_Started = false;
+    }
+    else if(tagID==EquipeOrange){
+      client.publish("Game1","W5");
+      led(3);
+      delay(1000);
+      led(0);
+      //led(3);
+      G_Started = false;
+    }
+    else if(tagID==EquipeMauve){
+      client.publish("Game1","W6");
+      led(3);
+      delay(1000);
+      led(0);
+      //led(3);
+      G_Started = false;
+    }
+    else if(tagID==EquipeMarron){
+      client.publish("Game1","W7");
+      led(3);
+      delay(1000);
+      led(0);
+
+      //led(3);
+      G_Started = false;
+    } 
   }
   // Reset the loop if no new card present on the sensor/reader. This saves the entire process when idle.
   
@@ -277,6 +289,7 @@ void led(int commande){
   switch(commande){
      
     case 1://ledRed
+    FastLED.show();
       for (int i = 0; i < NB_LEDS; ++i) {
         leds[i] = CRGB::Red;
       }
@@ -284,6 +297,7 @@ void led(int commande){
       break;
    
     case 2://ledBlue
+    FastLED.show();
        for (int i = 0; i < NB_LEDS; ++i) {
         leds[i] = CRGB::Blue;
       }
@@ -299,6 +313,7 @@ void led(int commande){
       break;
      
     case 4://ledYellow
+    FastLED.show();
        for (int i = 0; i < NB_LEDS; ++i) {
         leds[i] = CRGB::Yellow;
       }
@@ -306,12 +321,14 @@ void led(int commande){
       break;
      
     case 6://ledOrange
+    FastLED.show();
       for (int i = 0; i < NB_LEDS; ++i) {
         leds[i] = CRGB::Orange;
       }
       FastLED.show();
       break;
     case 7://ledWhite
+    FastLED.show();
       for (int i = 0; i < NB_LEDS; ++i) {
         leds[i] = CRGB::White;
       }
@@ -319,16 +336,10 @@ void led(int commande){
       break;
            
     default:
+      FastLED.show();
       for (int i=0; i<NB_LEDS; i++ )
         leds[i] = CRGB(0, 0, 0 );
       FastLED.show();
       break;
   }
-}
-
-void showProgramCleanUp(long delayTime) {
-  for (int i = 0; i < NB_LEDS; ++i) {
-    leds[i] = CRGB::Black;
-  }
-  FastLED.show();
 }
