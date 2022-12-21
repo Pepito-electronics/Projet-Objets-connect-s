@@ -10,7 +10,7 @@
 #include <AsyncTCP.h>
 #include <Wire.h>
 
-const char* mqtt_server ="172.30.40.52";    //NODERED
+const char* mqtt_server ="172.30.40.39";    //MQTT broker
 
 #define WIFI_SSID "LARAS"
 #define WIFI_PASS "wifi4guest"
@@ -35,7 +35,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("] ");
-  for (int i = 0; i < length; i++) {
+  for (unsigned int i = 0; i < length; i++) {
     Serial.print((char)payload[i]);
   }
   Serial.print('\n');
@@ -67,12 +67,11 @@ void callback(char* topic, byte* payload, unsigned int length) {
 }
 /*-------------------------------------------------------------------------*/
 
-/* Reconnect function for WIFI */
-void reconnect() {     //NODERED mqqt connexion 
+
+void reconnect() {     
   // Loop until we're reconnected
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
-    // Create a random client ID
     String clientId = "ESP32Client-";
     clientId += "Master";
     // Attempt to connect
@@ -95,7 +94,7 @@ void reconnect() {     //NODERED mqqt connexion
 
 void setup(){
   int send_time = millis();
- //----------------------------------------------------Serial
+ //-------------------------- Serial -----------------------------------
   Serial.begin(115200);
   // Connect to Wi-Fi
   WiFi.begin(WIFI_SSID, WIFI_PASS);
@@ -179,7 +178,7 @@ void setup(){
 }
  
 void loop(){
-  //Blynk.run();
+
   if (!client.connected()){
     reconnect();
   }

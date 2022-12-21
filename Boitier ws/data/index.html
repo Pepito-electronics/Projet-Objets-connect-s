@@ -47,17 +47,18 @@
         for(let i = 0; i < parseInt(commande.charAt(6));i++){
           incrementE4();
         }
-        for(let i = 0; i < parseInt(commande.charAt(6));i++){
+        for(let i = 0; i < parseInt(commande.charAt(8));i++){
           incrementE5();
         }
-        for(let i = 0; i < parseInt(commande.charAt(6));i++){
+        for(let i = 0; i < parseInt(commande.charAt(10));i++){
           incrementE6();
         }
       }
     };
-    xhttp.open("GET", "/actu", true);
+    xhttp.open("GET", "/scores", true);
     xhttp.send(null);
-  }, 30000 ) ;
+  }, 10000 ) ;
+
 
     function incrementE1() {
       document.getElementById('E1').stepUp();
