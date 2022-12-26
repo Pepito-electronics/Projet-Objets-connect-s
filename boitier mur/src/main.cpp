@@ -30,13 +30,15 @@
 #define LED_PIN 15// GPIO4 esp8266 d2   tester autre pin
 #define NB_LEDS 4
 
-#define WIFI_SSID "LARAS"
-#define WIFI_PASS "wifi4guest"
+//#define WIFI_SSID "LARAS"
+//#define WIFI_PASS "wifi4guest"
 
+#define WIFI_SSID "HUAWEI P9 lite"
+#define WIFI_PASS "aaaa1230"
 
 #define BRIGHTNESS 50
 
-const char* mqtt_server ="172.30.40.46";    //MQTT broker
+const char* mqtt_server ="192.168.43.128";    //MQTT broker
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -61,7 +63,7 @@ String tagID = "";
 // var
 bool G_Started;
 
-char ID[2] = {0x4D,0x31};
+char ID[2] = {0x4D,0x33};
 char ASCII_table_numbers [9] = {0x31,0x32,0x33,0x34,0x35,0x36,0x37,0x38,0x39};
 char ID_winner[2] = {0x00,0x00};
 
@@ -129,6 +131,7 @@ void reconnect() {
 
 void setup() { 
   Serial.begin(115200);
+  SPI.begin(); // Init SPI bus
   WiFi.begin(WIFI_SSID, WIFI_PASS);
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
@@ -144,8 +147,7 @@ void setup() {
 
   client.setServer(mqtt_server,1883); // Connect as client to the MQTT broker
   client.setCallback(callback);       // Set function to call when a message arrives
-
-  SPI.begin(); // Init SPI bus
+  rfid.PCD_SetAntennaGain(0x07);
   rfid.PCD_Init(); // Init MFRC522 
 }
  

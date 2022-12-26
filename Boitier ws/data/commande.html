@@ -8,7 +8,7 @@
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-    
+   
           var commande = this.responseText;
 
           console.log(this.responseText);
@@ -25,6 +25,9 @@
           for(let i = 0; i < parseInt(commande.charAt(6));i++){
             incrementCocktail4();
           }
+          for(let i = 0; i < parseInt(commande.charAt(8));i++){
+            incrementCocktail5();
+          }
         }
       };
       xhttp.open("GET", "/actu", true);
@@ -34,7 +37,7 @@
   </head>
 
   <body>
-    
+   
     <input id=cocktail1 type=number value="0" min="0">
     <button onclick="decrementCocktail1()">-</button>
     <button onclick="incrementCocktail1()">+</button>
@@ -53,6 +56,11 @@
     <input id=cocktail4 type=number value="0" min="0">
     <button onclick="decrementCocktail4()">-</button>
     <button onclick="incrementCocktail4()">+</button>
+    <br>
+
+    <input id=cocktail5 type=number value="0" min="0">
+    <button onclick="decrementCocktail5()">-</button>
+    <button onclick="incrementCocktail5()">+</button>
     <br>
 
     <script>
@@ -79,6 +87,12 @@
       }
       function decrementCocktail4() {
         document.getElementById('cocktail4').stepDown();
+      }
+       function incrementCocktail5() {
+        document.getElementById('cocktail5').stepUp();
+      }
+      function decrementCocktail5() {
+        document.getElementById('cocktail5').stepDown();
       }
     </script>
   </body>

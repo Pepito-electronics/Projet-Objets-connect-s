@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
   <head>
@@ -30,7 +30,7 @@
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-  
+ 
         var commande = this.responseText;
 
         console.log(this.responseText);
@@ -52,6 +52,9 @@
         }
         for(let i = 0; i < parseInt(commande.charAt(10));i++){
           incrementE6();
+        }
+        for(let i = 0; i < parseInt(commande.charAt(12));i++){
+          incrementE7();
         }
       }
     };
@@ -82,6 +85,9 @@
 
     function incrementE6() {
       document.getElementById('E6').stepUp();
+    }
+    function incrementE7() {
+      document.getElementById('E7').stepUp();
     }
 
   </script>
@@ -114,16 +120,21 @@
       }
       </script>
 
-      <h4 class="w3-animate-fading"> MA1 Electronique & Informatique</h4>
-      <h2 id="infos"> Règles du jeu :</h2>
-      <ul>
-        les règles bla bla bla lorem ipsum
-      </ul>
-
-	    <h2 style = "text-align:center;font-size:25px"> SCORE </h2>
-  
+      <h4> MA1 Electronique & Informatique</h4>
+      <h2 id="infos" style="text-align: center;"> Règles du jeu :</h2>
+      <br>
+      <h3 style="text-align: center;">
+        Pour participer au jeu il faut s'inscrire par groupe de 4 ou 5 auprès d'un des membres organisateur.
+        <br>
+        Chaque équipe possède une carte qu'il faudra scanner à chaque fois qu'un boîtier positioné sur un mur s'illumine.
+        Seul le premier groupe à scanner reçoit un point, soyez donc rapide ! <br>
+        Les gagnants recevront un bon de 30€ pour l'escape game Let Me Out
+      </h3>
+      <h2 style = "text-align:center;font-size:25px"> SCORE </h2>
+      <br>
+ 
       <div id = "score" style="text-align: center;">
-        <table align="center">     
+        <table align="center">    
           <tr>
             <td>Equipe 1</td>
             <td>Equipe 2</td>
@@ -131,6 +142,7 @@
             <td>Equipe 4</td>
             <td>Equipe 5</td>
             <td>Equipe 6</td>
+            <td>Equipe 7</td>
           </tr>
           <tr>
             <td> <input id=E1 type=number value="0" min="0" style="text-align: center;"> </td>
@@ -139,12 +151,18 @@
             <td> <input id=E4 type=number value="0" min="0" style="text-align: center;"> </td>
             <td> <input id=E5 type=number value="0" min="0" style="text-align: center;"> </td>
             <td> <input id=E6 type=number value="0" min="0" style="text-align: center;"> </td>
+            <td> <input id=E7 type=number value="0" min="0" style="text-align: center;"> </td>
           </tr>
         </table>
       </div>
+      <br>
+      <br>
+      <br>
     <footer class="w3-container w3-blue-grey w3-margin-top">
         <h5>Local hosted webserver</h5>
         <p> Launched from an ESP32 </p>
+        <p>&copy; Copyright Master 1 2022-23 </p>
+
     </footer>
   </body>
 </html>

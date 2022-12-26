@@ -10,10 +10,16 @@
 #include <AsyncTCP.h>
 #include <Wire.h>
 
-const char* mqtt_server ="172.30.40.39";    //MQTT broker
-
+const char* mqtt_server ="192.168.43.128";      //MQTT broker
+/*
 #define WIFI_SSID "LARAS"
 #define WIFI_PASS "wifi4guest"
+
+*/
+
+
+#define WIFI_SSID "HUAWEI P9 lite"
+#define WIFI_PASS "aaaa1230"
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
@@ -51,7 +57,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
       }
       break;
     case 'W':
-      for(int j = 0; j < 6 ; j++){
+      for(int j = 0; j < 9 ; j++){
         if(payload[1] == ASCII_table_numbers[j]){
           Serial.println(j);
           score[j]++;
